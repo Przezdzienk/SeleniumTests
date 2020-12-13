@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import static io.restassured.RestAssured.given;
+
 public class Logowanie extends Base {
 
     WebElement nazwa;
@@ -14,6 +16,7 @@ public class Logowanie extends Base {
 
     @BeforeEach
     public void loginSet(){
+        given().get(WebSite).then().statusCode(200);
         nazwa=driver.findElement(By.id("user-name"));
         password=driver.findElement(By.id("password"));
         logInButton=driver.findElement(By.id("login-button"));
