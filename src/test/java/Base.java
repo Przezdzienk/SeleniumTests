@@ -2,10 +2,12 @@ import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class PierszyTest {
+public class Base {
 
     WebDriver driver;
 
@@ -13,22 +15,11 @@ public class PierszyTest {
     public void driverSet(){
         System.setProperty("webdriver.gecko.driver","src/main/resources/geckodriver.exe");
         driver= new FirefoxDriver();
+        driver.navigate().to("https://www.saucedemo.com/index.html");
     }
     @AfterEach
     public void stopDriver(){
         driver.quit();
     }
-    @Test
-    public void firstTest(){
-        driver.navigate().to("https://pl.wikipedia.org/wiki/Wikipedia:Strona_g%C5%82%C3%B3wna");
-        driver.navigate().to("https://manganelo.com/");
-        driver.navigate().back();
 
-        Assert.assertEquals("https://pl.wikipedia.org/wiki/Wikipedia:Strona_g%C5%82%C3%B3wna",driver.getCurrentUrl());
-
-        driver.navigate().forward();
-
-        Assert.assertEquals("https://manganelo.com/",driver.getCurrentUrl());
-
-    }
 }
