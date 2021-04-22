@@ -5,8 +5,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Base {
 
-    WebDriver driver;
-    String WebSite="https://www.saucedemo.com/index.html";
+    static WebDriver driver;
+    String WebSite="https://www.saucedemo.com";
 
     @BeforeEach
     public void driverSet(){

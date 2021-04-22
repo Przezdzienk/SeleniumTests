@@ -8,11 +8,11 @@ import static io.restassured.RestAssured.given;
 
 public class Logowanie extends Base {
 
-    WebElement nazwa;
-    WebElement password;
-    WebElement logout;
-    WebElement logInButton;
-    WebElement errorMessage;
+    static WebElement nazwa;
+    static WebElement password;
+    static WebElement logout;
+    static WebElement logInButton;
+    static WebElement errorMessage;
 
     @BeforeEach
     public void loginSet(){
@@ -23,8 +23,8 @@ public class Logowanie extends Base {
     }
 
     @Test
-    public void logIn(){
-
+    public void logIn()
+    {
         nazwa.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         logInButton.click();
@@ -37,17 +37,17 @@ public class Logowanie extends Base {
         nazwa.sendKeys("standard_user");
         logInButton.click();
 
-        errorMessage=driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/div/form/h3"));
+        errorMessage=driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[3]/h3"));
         Assert.assertEquals("Epic sadface: Password is required",errorMessage.getText());
     }
 
     @Test
-    public void logInFailWrongPassWord(){
+    void logInFailWrongPassWord(){
         nazwa.sendKeys("standard_user");
         password.sendKeys("CosMaggicznego");
         logInButton.click();
 
-        errorMessage=driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/div/form/h3"));
+        errorMessage=driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[3]/h3"));
         Assert.assertEquals("Epic sadface: Username and password do not match any user in this service",errorMessage.getText());
     }
     @Test
@@ -56,19 +56,25 @@ public class Logowanie extends Base {
         password.sendKeys("secret_sauce");
         logInButton.click();
 
-        errorMessage=driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/div/form/h3"));
+        errorMessage=driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[3]/h3"));
         Assert.assertEquals("Epic sadface: Sorry, this user has been locked out.",errorMessage.getText());
     }
     @Test
     public void logOut(){
 
         logIn();
-        driver.findElement(By.xpath("/html/body/div/div[1]/div/div[3]/div/button")).click();
-
-        logout=driver.findElement(By.linkText("Logout"));
+        driver.findElement(By.id("react-burger-menu-btn")).click();
+        logout=driver.findElement(By.id("reset_sidebar_link"));
         Assert.assertTrue(logout.isDisplayed());
         logout.click();
     }
-
+    public static void logInIn(){
+        nazwa=driver.findElement(By.id("user-name"));
+        password=driver.findElement(By.id("password"));
+        logInButton=driver.findElement(By.id("login-button"));
+        nazwa.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        logInButton.click();
+    }
 
 }
