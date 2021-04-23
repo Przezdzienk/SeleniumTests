@@ -10,7 +10,8 @@ public class Kosz extends Base{
 
     WebElement logo;
     WebElement removeButton;
-    WebElement cartLink;
+    static WebElement cartLink;
+    static WebElement checkoutGo;
     WebElement continueShoppingButton;
     List<WebElement> itemInCart;
     List<WebElement> removedItemsFromCart;
@@ -23,16 +24,14 @@ public class Kosz extends Base{
     @Test
     public void checkAddedItems(){
         StronaGlowna.addAdd();
-        cartLink=driver.findElement(By.className("shopping_cart_link"));
-        cartLink.click();
+        cartGo();
         itemInCart=driver.findElements(By.className("cart_item"));
         Assert.assertTrue(itemInCart.size()==2);
     }
 
     @Test
     public void checkIfNoAddedItems(){
-        cartLink=driver.findElement(By.className("shopping_cart_link"));
-        cartLink.click();
+        cartGo();
         itemInCart=driver.findElements(By.className("cart_item"));
         Assert.assertTrue(itemInCart.size()==0);
     }
@@ -40,8 +39,7 @@ public class Kosz extends Base{
     @Test
     public void removeItems(){
         StronaGlowna.addAdd();
-        cartLink=driver.findElement(By.className("shopping_cart_link"));
-        cartLink.click();
+        cartGo();
         removeButton= driver.findElement(By.id("remove-sauce-labs-bike-light"));
         removeButton.click();
         itemInCart=driver.findElements(By.className("cart_item"));
@@ -57,5 +55,13 @@ public class Kosz extends Base{
         continueShoppingButton.click();
         logo=driver.findElement(By.className("peek"));
         Assert.assertTrue(logo.isDisplayed());
+    }
+    public static void cartGo(){
+        cartLink=driver.findElement(By.className("shopping_cart_link"));
+        cartLink.click();
+    }
+    public static void checkoutGo(){
+        checkoutGo=driver.findElement(By.id("checkout"));
+        checkoutGo.click();
     }
 }
